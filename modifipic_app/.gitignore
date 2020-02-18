@@ -28,6 +28,7 @@ local_settings.py
 .idea/
 
 
+
 # Python #
 *.py[cod]
 *$py.class
