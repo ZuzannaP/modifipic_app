@@ -11,7 +11,8 @@ media
 
 local_settings.py
 
-# If you are using PyCharm #
+# If you are using PyCharm #git rm --cached .idea/
+.idea/
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/dictionaries
@@ -25,7 +26,7 @@ local_settings.py
 .idea/**/gradle.xml
 .idea/**/libraries
 *.iws /out/
-.idea/
+/.idea/workspace.xml
 
 
 
