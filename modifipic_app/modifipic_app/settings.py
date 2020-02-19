@@ -128,9 +128,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# authomaticaly gives post, put delete access to logged users and to anonymous ones only read functionality
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-        ]
-    }
+# # authomaticaly gives post, put delete access to logged users and to anonymous ones only read functionality
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#      'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+#         ]
+#     }
+
+MEDIA_URL = 'modifipic_app/img_modifier/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
