@@ -14,17 +14,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 
 from .settings import MEDIA_URL, MEDIA_ROOT
-from img_modifier.views import BlurView
+from img_modifier.views import BlurView, SepiaView, FlipHorizontallyView, ImageViewSet
+
 
 router = DefaultRouter()
-router.register(r'blur', BlurView, basename='Blur View')
+router.register(r'images', ImageViewSet, basename='Images View')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blur/', BlurView.as_view(), name="blur")
-]+ static(MEDIA_URL, document_root=MEDIA_ROOT)
+    path('', include(router.urls)),
+    path('blur/', BlurView.as_view(), name="blur"),
+    path('sepia/', SepiaView.as_view(), name="sepia"),
+    path('flip_horizontally/', FlipHorizontallyView.as_view(), name="flip_horizontally"),
+
+
+] + static(MEDIA_URL, document_root=MEDIA_ROOT)
