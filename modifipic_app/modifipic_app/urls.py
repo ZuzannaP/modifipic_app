@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 
 from .settings import MEDIA_URL, MEDIA_ROOT
-from img_modifier.views import BlurView, SepiaView, FlipHorizontallyView, ImageViewSet
+from img_modifier.views import SepiaView, FlipHorizontallyView, ImageViewSet
 
 
 router = DefaultRouter()
@@ -28,7 +28,7 @@ router.register(r'images', ImageViewSet, basename='Images View')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('blur/', BlurView.as_view(), name="blur"),
+    # path('blur/', BlurView.as_view(), name="blur"),
     path('sepia/', SepiaView.as_view(), name="sepia"),
     path('flip_horizontally/', FlipHorizontallyView.as_view(), name="flip_horizontally"),
 
