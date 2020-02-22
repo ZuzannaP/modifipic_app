@@ -19,10 +19,11 @@ from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 
 from .settings import MEDIA_URL, MEDIA_ROOT
-from img_modifier.views import ImageViewSet
+from img_modifier.views import ImageViewSet, BluredImageViewSet
 
 router = DefaultRouter()
 router.register(r'images', ImageViewSet, basename='Images View')
+router.register(r'blurred_images', BluredImageViewSet, basename=' Blured Images View')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
