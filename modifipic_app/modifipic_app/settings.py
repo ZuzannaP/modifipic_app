@@ -24,8 +24,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 try:
     from .local_settings import SECRET_KEY # noqa
 except ModuleNotFoundError:
-    print("Brak konfiguracji bazy danych w pliku local_settings.py!")
-    print("Uzupełnij dane i spróbuj ponownie!")
+    print("Database not configured in file local_settings.py!")
+    print("Fill out this data and try again!")
     exit(0)
 
 
@@ -85,8 +85,8 @@ WSGI_APPLICATION = 'modifipic_app.wsgi.application'
 try:
     from .local_settings import DATABASES # noqa
 except ModuleNotFoundError:
-    print("Brak konfiguracji bazy danych w pliku local_settings.py!")
-    print("Uzupełnij dane i spróbuj ponownie!")
+    print("Database not configured in file local_settings.py!")
+    print("Fill out this data and try again!")
     exit(0)
 
 
