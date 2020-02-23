@@ -1,12 +1,13 @@
 from django.db import models
 
-CATEGORIES=[
+CATEGORIES = [
     (0, "Raw"),
     (1, "Blurred"),
     (2, 'Gray'),
     (3, 'Flipped horizontally'),
     (4, "Sepia")
 ]
+
 
 class Image(models.Model):
     file = models.ImageField(blank=False, null=False, upload_to='images', max_length=256)

@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 
 from .settings import MEDIA_URL, MEDIA_ROOT
-from img_modifier.views import RawImageViewSet, BluredImageViewSet, FlippedHorizontallyImageViewSet,GrayImageViewSet, \
+from img_modifier.views import RawImageViewSet, BluredImageViewSet, FlippedHorizontallyImageViewSet, GrayImageViewSet,\
                                SepiaImageViewSet
 
 
@@ -32,7 +32,8 @@ router.register(r'gray_images', GrayImageViewSet, basename=' Gray Images View')
 router.register(r'sepia_images', SepiaImageViewSet, basename=' Sepia Images View')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('owner/', admin.site.urls),
     path('', include(router.urls)),
+    path('api-authenticate', include("rest_framework.urls"))
 
 ] + static(MEDIA_URL, document_root=MEDIA_ROOT)
