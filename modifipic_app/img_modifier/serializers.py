@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from .models import Image
+from .models import TheImage
 
 
 class ImageSerializer(serializers.ModelSerializer):
     category = serializers.CharField(source='get_category_display')
 
     class Meta:
-        model = Image
+        model = TheImage
         fields = ['pk', 'file', 'category', 'upload_date']

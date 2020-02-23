@@ -48,4 +48,40 @@ results = imagenet_utils.decode_predictions(preds)
 print(results[0][0][1])
 
 
+###############################################################################
+
+#flask
+
+# @url_family(app, ENDPOINTS.keys(), methods=['POST'])
+# def run(endpoint):
+#     uploaded_file = request.files['image']
+#
+#     threshold = None
+#     if 'threshold' in request.values.keys():
+#         threshold = float(request.values['threshold'])
+#
+#     temp_dir = tempfile.mkdtemp(dir=app.config['UPLOAD_DIR'])
+#     uploaded_file.save(os.path.join(temp_dir, uploaded_file.filename))
+#
+#     image_full_path = os.path.join(temp_dir, uploaded_file.filename)
+#     image = cv2.imread(image_full_path)
+#     if image is None:
+#         abort(400)
+#
+#     model_id = ENDPOINTS[endpoint][1]
+#     function_name = ENDPOINTS[endpoint][2]
+#     function = make_func(function_name)
+#
+#     results = function(image, MODELS[model_id], threshold)
+#
+#     response = make_response()
+#     response.data = json.dumps(results)
+#     response.headers["Content-Type"] = "application/json"
+#
+#     shutil.rmtree(temp_dir)
+#
+#     return response
+
+
+##############################
 
