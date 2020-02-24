@@ -50,31 +50,46 @@ class RawImageViewSet(viewsets.ModelViewSet):
         new_img_name = new_img_name_prefix + img_name
         new_dir_path = os.path.join(dir_path, new_folder_name)
         self.create_dir(self, new_dir_path)
-        # img_path = os.path.join(new_dir_path, new_img_name)
+        img_path = os.path.join(new_dir_path, new_img_name)
 
-        return new_img_name, image
+        return new_img_name, image, img_path
 
     @action(detail=True, url_path='blur', methods=['get'])
     def blur_image(self, request, *args, **kwargs):
         """ Blurrs the image and saves in database """
         new_img_name_prefix = "blurred_"
         new_folder_name = "blurred"
-        new_img_name, image = self.preprocessing_img(new_img_name_prefix, new_folder_name)
+        new_img_name, image, img_path = self.preprocessing_img(new_img_name_prefix, new_folder_name)
 
         try:
             blurred_img = cv2.GaussianBlur(image, (21, 21), cv2.BORDER_DEFAULT)
-
-            # creates object comparable to temporary file in RAM
-            f = io.BytesIO(blurred_img.tobytes())
-            data = File(f)
-            new_image = TheImage()
-            new_image.category = 1
-            new_image.file.save(os.path.join(new_folder_name, new_img_name), data, True)
+            temp_path = img_path + "_temp.jpg"
+            cv2.imwrite(temp_path, blurred_img)
+            with open(temp_path, 'rb') as f:
+                data = File(f)
+                new_image = TheImage()
+                new_image.category = 2
+                new_image.file.save(os.path.join(new_folder_name, new_img_name), data, True)
+                os.remove(temp_path)
             return Response("Image has been blurred.")
         except OSError:
             raise Http404("Image not found")
 
+        #todo rozszerz powyższą funkcję na resztę, doda im do tupli self.preprocessing_img trzeci parametr
+
+        # try:
+        #     blurred_img = cv2.GaussianBlur(image, (21, 21), cv2.BORDER_DEFAULT)
         #
+        #     # creates object comparable to temporary file in RAM
+        #     f = io.BytesIO(blurred_img.tobytes())
+        #     data = SimpleUploadedFile(f.read)
+        #     new_image = TheImage()
+        #     new_image.category = 1
+        #     new_image.file.save(os.path.join(new_folder_name, new_img_name), data, True)
+        #     return Response("Image has been blurred.")
+        # except OSError:
+        #     raise Http404("Image not found")
+
         # try:
         #     blurred_img = cv2.GaussianBlur(image, (21, 21), cv2.BORDER_DEFAULT)
         #     cv2.imwrite(img_path, blurred_img)
