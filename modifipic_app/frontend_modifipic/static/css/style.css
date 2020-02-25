@@ -1,0 +1,53 @@
+body{
+    background-color: grey;
+    text-align: center;
+    color: rgba(41, 21, 62, 0.89);
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#upload_form{
+    border: 0.5rem outset rebeccapurple;
+    font-size: 18px;
+    border-radius: 12px;
+    margin: 5rem;
+    padding: 1rem;
+    background-color: rgba(255, 165, 0, 0.64);
+}
+
+#id_ajax_upload_form > input[type=submit]:nth-child(3){
+  font-family: 'Ubuntu', sans-serif;
+  width: 100px;
+  height: 40px;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: 3px solid rebeccapurple;
+  background: lightgrey;
+  color: rebeccapurple;
+  border-radius: 40px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+#id_ajax_upload_form > input[type=submit]:nth-child(3):hover{
+  background: rebeccapurple;
+  color: lightgrey;
+}
+
+footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rebeccapurple;
+    color: lightgrey;
+    text-align: center;
+    float: left;
+}
+
+#right-footer{
+    float: right;
+    color: lightgrey;
+    font-size: 70%;
+    padding-top: 0.3%;
+}

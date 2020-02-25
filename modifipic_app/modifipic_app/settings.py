@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'img_modifier',
+    'frontend_modifipic',
     'rest_framework',
+
 ]
 
 MIDDLEWARE = [

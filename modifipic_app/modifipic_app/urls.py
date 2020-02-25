@@ -22,6 +22,7 @@ from .settings import MEDIA_URL, MEDIA_ROOT
 from img_modifier.views import RawImageViewSet, BluredImageViewSet, FlippedHorizontallyImageViewSet, GrayImageViewSet,\
                                SepiaImageViewSet
 
+import frontend_modifipic.urls
 
 router = DefaultRouter()
 router.register(r'raw_images', RawImageViewSet, basename='Raw Images View')
@@ -33,7 +34,8 @@ router.register(r'sepia_images', SepiaImageViewSet, basename=' Sepia Images View
 
 urlpatterns = [
     path('owner/', admin.site.urls),
-    path('', include(router.urls)),
-    path('api-authenticate', include("rest_framework.urls"))
+    path('api/', include(router.urls)),
+    path('api-authenticate', include("rest_framework.urls")),
+    path('', include(frontend_modifipic.urls)),
 
 ] + static(MEDIA_URL, document_root=MEDIA_ROOT)

@@ -3,7 +3,6 @@
 *.pot
 *.pyc
 __pycache__
-modifipic_app/db.sqlite3
 media
 
 # Backup files #
