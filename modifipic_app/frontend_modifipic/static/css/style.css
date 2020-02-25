@@ -1,37 +1,45 @@
+h1{
+    color: #00003e;
+    font-weight: bold;
+}
+
 body{
-    background-color: grey;
+    background-color: steelblue;
     text-align: center;
-    color: rgba(41, 21, 62, 0.89);
+    color: darkblue;
     font-family: 'Ubuntu', sans-serif;
 }
 
 #upload_form{
-    border: 0.5rem outset rebeccapurple;
+    border: 0.5rem outset darkblue;
     font-size: 18px;
     border-radius: 12px;
-    margin: 5rem;
+    margin: 1rem;
     padding: 1rem;
-    background-color: rgba(255, 165, 0, 0.64);
+    background-color: rgba(255, 255, 0, 0.69);
 }
 
 #id_ajax_upload_form > input[type=submit]:nth-child(3){
   font-family: 'Ubuntu', sans-serif;
   width: 100px;
   height: 40px;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 16px;
   letter-spacing: 1px;
-  border: 3px solid rebeccapurple;
-  background: lightgrey;
-  color: rebeccapurple;
-  border-radius: 40px;
+  border: 1px solid darkblue;
+  background: white;
+  color: darkblue;
   cursor: pointer;
   overflow: hidden;
 }
 
 #id_ajax_upload_form > input[type=submit]:nth-child(3):hover{
-  background: rebeccapurple;
-  color: lightgrey;
+  background: darkblue;
+  color: white;
+}
+
+#id_file{
+    background-color: darkblue;
+    color: white;
 }
 
 footer{
@@ -39,7 +47,8 @@ footer{
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: rebeccapurple;
+    background-color: #00003e;
+    font-size: 90%;
     color: lightgrey;
     text-align: center;
     float: left;
@@ -50,4 +59,9 @@ footer{
     color: lightgrey;
     font-size: 70%;
     padding-top: 0.3%;
+}
+
+img{
+    margin: 1rem;
+    width:15%;
 }
