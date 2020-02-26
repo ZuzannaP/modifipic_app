@@ -10,20 +10,24 @@ body{
     font-family: 'Ubuntu', sans-serif;
 }
 
-#upload_form{
-    border: 0.5rem outset darkblue;
+.upload_form{
+    border: 0.2rem outset darkblue;
     font-size: 18px;
-    border-radius: 12px;
-    margin: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
     padding: 1rem;
     background-color: rgba(255, 255, 0, 0.69);
 }
 
-#id_ajax_upload_form > input[type=submit]:nth-child(3){
+#id_submit_form{
+    font-size: 14px;
+}
+
+.submit-button {
   font-family: 'Ubuntu', sans-serif;
   width: 100px;
-  height: 40px;
-  font-size: 16px;
+  height: 30px;
+  font-size: 12px;
   letter-spacing: 1px;
   border: 1px solid darkblue;
   background: white;
@@ -32,7 +36,7 @@ body{
   overflow: hidden;
 }
 
-#id_ajax_upload_form > input[type=submit]:nth-child(3):hover{
+.submit-button:hover{
   background: darkblue;
   color: white;
 }
@@ -63,5 +67,5 @@ footer{
 
 img{
     margin: 1rem;
-    width:15%;
+    width:10%;
 }

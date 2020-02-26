@@ -2,10 +2,12 @@ from django.urls import path
 from django.conf.urls.static import static
 
 from modifipic_app.settings import MEDIA_URL, MEDIA_ROOT
-from img_modifier.views import upload_image_via_form_view
+from .views import upload_image_via_form_view, download_image_view, modify_image_view
 
 
 urlpatterns = [
-    path('', upload_image_via_form_view, name="landing_page")
+    path('', upload_image_via_form_view, name="landing_page"),
+    path('modify/<int:pk>', modify_image_view, name="modify"),
+    path('download/<int:pk>', download_image_view, name="download")
 
 ] + static(MEDIA_URL, document_root=MEDIA_ROOT)

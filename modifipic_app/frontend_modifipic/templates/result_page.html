@@ -17,17 +17,14 @@
 <img src="{% static "img/insert.png" %}" alt="Insert_icon"/>
 </div>
 
+<h3>Download modified photo</h3>
 
 <div class="upload_form">
-    <form
-            enctype="multipart/form-data"
-             method="POST"
-            novalidate="">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" class="submit-button"/>
+ <form>
+    <input type="submit" value="Download" class="submit-button"/>
     </form>
 </div>
+
 </body>
 
 <footer>

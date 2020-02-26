@@ -6,7 +6,6 @@ import numpy as np
 
 from django.core.files.images import ImageFile
 from django.http import Http404
-from django.shortcuts import render
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
@@ -16,22 +15,6 @@ from rest_framework import viewsets
 from .models import TheImage
 from .serializers import ImageSerializer
 from .permissions import GetPostOrAuthenticated
-
-from django.http import JsonResponse
-from frontend_modifipic.forms import ImageFileUploadForm
-
-
-def upload_image_via_form_view(request):
-    if request.method == 'POST':
-        form = ImageFileUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return JsonResponse({'error': False, 'message': 'Image uploaded Successfully'})
-        else:
-            return JsonResponse({'error': True, 'errors': "Oops! Something went wrong \n" + form.errors})
-    else:
-        form = ImageFileUploadForm()
-        return render(request, 'landing_page.html', {'form': form})
 
 
 class RawImageViewSet(viewsets.ModelViewSet):
