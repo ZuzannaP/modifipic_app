@@ -25,18 +25,22 @@ def modify_image_view(request, pk):
         image = TheImage.objects.get(pk=pk)
         chosen_modification = request.POST.get("modificationType")
         if chosen_modification == "gray":
+            new_image = 2
             pass
         elif chosen_modification == "sepia":
+            new_image = 2
             pass
         elif chosen_modification == "blurred":
+            new_image = 2
             pass
         elif chosen_modification == "flipped-horizontally":
+            new_image = 2
             pass
-        return redirect(f"result/{image.pk}")
+        return redirect(f"/download/{new_image.pk}")
 
 
-def download_image_view(request, pk):
+def display_image_view(request, pk):
     if request.method == 'GET':
-        return render(request, 'result_page.html')
-    # if request.method == 'POST':
-    #     pass
+        image = TheImage.objects.get(pk=pk)
+        ctx = {'image': image}
+        return render(request, 'result_page.html', ctx)

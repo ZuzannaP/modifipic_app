@@ -14,15 +14,13 @@
 <h2>Upload image and decide which result you desire</h2>
 
 <div>
-<img src="{% static "img/insert.png" %}" alt="Insert_icon"/>
+<img src="{% static "img/insert.png" %}" alt="Insert_icon" id="icon" />
 </div>
 
-<h3>Download modified photo</h3>
+<h3>Modified photo:</h3>
 
 <div class="upload_form">
- <form>
-    <input type="submit" value="Download" class="submit-button"/>
-    </form>
+    <img src="{{ image.file.url }}"  alt="modified_picture" width="50%">
 </div>
 
 </body>
