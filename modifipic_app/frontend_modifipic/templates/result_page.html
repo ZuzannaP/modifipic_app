@@ -2,28 +2,23 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> Modifipic </title>
-    <link rel="stylesheet" href={% static "css/style.css" %} >
-</head>
-
-<body>
-<h1>MODIFIPIC</h1>
-<h2>Modified photo:</h2>
-
-<div class="upload_form">
-    <img src="{{ image.file.url }}"  alt="modified_picture" width="50%">
-</div>
-
-</body>
-
-<footer>
-<div>
-  <small>MODIFIPIC   Copyright &copy Zuzanna Pietruszyńska</small>
-  <small id="right-footer"> Icon made by Pixelmeetup from  www.flaticon.com</small>
-</div>
-</footer>
-
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title> Modifipic </title>
+        <link rel="stylesheet" href={% static "css/style.css" %} >
+    </head>
+    <body>
+        <h1>MODIFIPIC</h1>
+        <h2>Modified photo:</h2>
+        <div class="upload_form">
+            <img src="{{ image.file.url }}"  alt="modified_picture" width="50%">
+        </div>
+    </body>
+    <footer>
+        <div>
+          <small>MODIFIPIC   Copyright &copy Zuzanna Pietruszyńska</small>
+          <small id="right-footer"> Icon made by Pixelmeetup from  www.flaticon.com</small>
+        </div>
+    </footer>
 </html>

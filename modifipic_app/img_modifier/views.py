@@ -10,11 +10,13 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from rest_framework.response import Response
-from rest_framework import viewsets, status
+from rest_framework import viewsets
 
 from .models import TheImage
 from .serializers import ImageSerializer
 from .permissions import GetPostOrAuthenticated
+
+from modifipic_app import utils
 
 
 class RawImageViewSet(viewsets.ModelViewSet):
@@ -23,41 +25,13 @@ class RawImageViewSet(viewsets.ModelViewSet):
     serializer_class = ImageSerializer
     permission_classes = (GetPostOrAuthenticated, )
 
-    @staticmethod
-    def create_dir(self, path):
-        try:
-            os.mkdir(path)
-        except OSError as e:
-            if e.errno == 17:  # Directory already exists.
-                pass
-
-    def preprocessing_img(self, new_img_name_prefix, new_folder_name):
-        """ Converting image to numpy and creating necessary directory paths"""
-        raw_image = self.get_object()
-
-        # converting image to array in numpy (x*y*3)
-        try:
-            image = cv2.imread(raw_image.file.path)
-        except OSError as e:
-            raise Http404("Unable to open image", e)
-        except AssertionError as f:
-            raise Http404("Unable to open image, upload it again", f)
-
-        # todo dodaj messages framework i te errory wypisuj z góry
-
-        dir_path = os.path.dirname(raw_image.file.path)
-        img_name = os.path.basename(raw_image.file.name)
-        new_img_name = new_img_name_prefix + img_name
-        new_dir_path = os.path.join(dir_path, new_folder_name)
-        self.create_dir(self, new_dir_path)
-        return new_img_name, image
-
     @action(detail=True, url_path='blur', methods=['get'])
     def blur_image(self, request, *args, **kwargs):
         """ Blurrs the image and saves in database """
+        raw_image = self.get_object()
         new_img_name_prefix = "blurred_"
         new_folder_name = "blurred"
-        new_img_name, image = self.preprocessing_img(new_img_name_prefix, new_folder_name)
+        new_img_name, image = utils.preprocessing_img(new_img_name_prefix, new_folder_name, raw_image)
 
         try:
             blurred_img = cv2.GaussianBlur(image, (21, 21), cv2.BORDER_DEFAULT)
@@ -76,9 +50,10 @@ class RawImageViewSet(viewsets.ModelViewSet):
     @action(detail=True, url_path='flip-horizontally', methods=['get'])
     def flip_image_horizontally(self, request, *args, **kwargs):
         """ Flipps the image horizontally """
+        raw_image = self.get_object()
         new_img_name_prefix = "flipped_hor_"
         new_folder_name = "flipped_horizontally"
-        new_img_name, image = self.preprocessing_img(new_img_name_prefix, new_folder_name)
+        new_img_name, image = utils.preprocessing_img(new_img_name_prefix, new_folder_name, raw_image)
 
         try:
             flipped = cv2.flip(image, 1)
@@ -96,9 +71,10 @@ class RawImageViewSet(viewsets.ModelViewSet):
     @action(detail=True, url_path="gray", methods=['get'])
     def gray_image(self, request, *args, **kwargs):
         """ Converts image to black and white """
+        raw_image = self.get_object()
         new_img_name_prefix = "gray_"
         new_folder_name = "gray"
-        new_img_name, image = self.preprocessing_img(new_img_name_prefix, new_folder_name)
+        new_img_name, image = utils.preprocessing_img(new_img_name_prefix, new_folder_name, raw_image)
 
         try:
             gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -117,9 +93,10 @@ class RawImageViewSet(viewsets.ModelViewSet):
     @action(detail=True, url_path='sepia', methods=['get'])
     def sepia_image(self, request, *args, **kwargs):
         """ Changes image color to sepia """
+        raw_image = self.get_object()
         new_img_name_prefix = "sepia_"
         new_folder_name = "sepia"
-        new_img_name, image = self.preprocessing_img(new_img_name_prefix, new_folder_name)
+        new_img_name, image = utils.preprocessing_img(new_img_name_prefix, new_folder_name, raw_image)
 
         try:
             img_sepia = cv2.transform(image, np.matrix([[0.272, 0.534, 0.131],
@@ -168,24 +145,3 @@ class SepiaImageViewSet(viewsets.ModelViewSet):
     queryset = TheImage.objects.filter(category=4)
     serializer_class = ImageSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
-
-
-# #################### PHOTOALBUM
-
-# class AddPhoto(LoginRequiredMixin, View):
-#
-#     def get(self, request):
-#         form = AddPhotoForm()
-#         ctx = {"form": form}
-#         return render(request, "add_photo_tmp.html", ctx)
-#
-#     def post(self, request):
-#         form = AddPhotoForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             path = form.cleaned_data["path"]
-#             description = form.cleaned_data["description"]
-#             photo = Photo.objects.create(path=path, owner=request.user, description=description)
-#             messages.success(request, 'Photo successfully uploaded')
-#             return redirect(f"/photo/{photo.pk}/")
-#         ctx = {"form": form}
-#         return render(request, "add_photo_tmp.html", ctx)

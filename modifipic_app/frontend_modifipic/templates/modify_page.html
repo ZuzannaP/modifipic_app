@@ -2,51 +2,45 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> Modifipic </title>
-    <link rel="stylesheet" href={% static "css/style.css" %} >
-</head>
-
-<body>
-<h1>MODIFIPIC</h1>
-<h2>Modify choosen photo</h2>
-
-<div>
-<img src="{% static "img/career.png" %}" alt="career_icon" id="icon"/>
-</div>
-
-<div class="upload_form">
-    <form
-        id = "id_submit_form"
-         method="POST"
-        novalidate="">
-        {% csrf_token %}
-        <legend><b>What outcome do you want?</b></legend></br>
-        <label>
-        <input type="radio" name="modificationType" value="gray">
-        Gray</label>
-        <label>
-        <input type="radio" name="modificationType" value="sepia">
-        Sepia   </label>
-        <label>
-        <input type="radio" name="modificationType" value="blurred">
-        Blurred</label>
-        <label>
-        <input type="radio" name="modificationType" value="flipped-horizontally">
-        Flipped horizontally</label></br></br>
-        <input type="submit" value="Choose"  class="submit-button"/>
-    </form>
-</div></br></br></br></br></br>
-
-</body>
-
-<footer>
-<div>
-  <small>MODIFIPIC   Copyright &copy Zuzanna Pietruszyńska</small>
-  <small id="right-footer"> Icon made by Pixelmeetup from  www.flaticon.com</small>
-</div>
-</footer>
-
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title> Modifipic </title>
+        <link rel="stylesheet" href={% static "css/style.css" %} >
+    </head>
+    <body>
+        <h1>MODIFIPIC</h1>
+        <h2>Modify choosen photo</h2>
+        <div>
+            <img src="{% static "img/career.png" %}" alt="career_icon" id="icon"/>
+        </div>
+        <div class="upload_form">
+            <form
+                id = "id_submit_form"
+                 method="POST"
+                novalidate="">
+                {% csrf_token %}
+                <legend><b>What outcome do you want?</b></legend></br>
+                <label>
+                    <input type="radio" name="modificationType" value="gray">
+                    Gray</label>
+                <label>
+                    <input type="radio" name="modificationType" value="sepia">
+                    Sepia   </label>
+                <label>
+                    <input type="radio" name="modificationType" value="blurred">
+                    Blurred</label>
+                <label>
+                    <input type="radio" name="modificationType" value="flipped-horizontally">
+                    Flipped horizontally</label></br></br>
+                <input type="submit" value="Choose"  class="submit-button"/>
+            </form>
+        </div></br></br></br></br></br>
+    </body>
+    <footer>
+        <div>
+          <small>MODIFIPIC   Copyright &copy Zuzanna Pietruszyńska</small>
+          <small id="right-footer"> Icon made by Pixelmeetup from  www.flaticon.com</small>
+        </div>
+    </footer>
 </html>

@@ -2,39 +2,33 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> Modifipic </title>
-    <link rel="stylesheet" href={% static "css/style.css" %} >
-</head>
-
-<body>
-<h1>MODIFIPIC</h1>
-<h2>Upload image and decide which result you desire</h2>
-
-<div>
-<img src="{% static "img/insert.png" %}" alt="Insert_icon" id="icon"/>
-</div>
-
-
-<div class="upload_form">
-    <form
-            enctype="multipart/form-data"
-             method="POST"
-            novalidate="">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" class="submit-button"/>
-    </form>
-</div>
-</body>
-
-<footer>
-<div>
-  <small>MODIFIPIC   Copyright &copy Zuzanna Pietruszyńska</small>
-  <small id="right-footer"> Icon made by Pixelmeetup from  www.flaticon.com</small>
-</div>
-</footer>
-
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title> Modifipic </title>
+        <link rel="stylesheet" href={% static "css/style.css" %} >
+    </head>
+    <body>
+        <h1>MODIFIPIC</h1>
+        <h2>Upload image and decide which result you desire</h2>
+        <div>
+         <img src="{% static "img/insert.png" %}" alt="Insert_icon" id="icon"/>
+        </div>
+        <div class="upload_form">
+            <form
+                enctype="multipart/form-data"
+                method="POST"
+                novalidate="">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" class="submit-button"/>
+            </form>
+        </div>
+    </body>
+    <footer>
+        <div>
+          <small>MODIFIPIC   Copyright &copy Zuzanna Pietruszyńska</small>
+          <small id="right-footer"> Icon made by Pixelmeetup from  www.flaticon.com</small>
+        </div>
+    </footer>
 </html>
