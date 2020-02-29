@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title> Modifipic </title>
+        <link rel="stylesheet" href="style.css" >
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <h1>A TEST FRONTEND APP USING MODIFIPIC REST API</h1>
+        <h2>Upload image and decide which result you desire</h2>
+
+        <div class="upload_form">
+<!--            <form-->
+<!--                enctype="multipart/form-data"-->
+<!--                id="id_ajax_upload_form" method="POST"-->
+<!--                method="POST"-->
+<!--                novalidate="">-->
+<!--                {{ form.as_p }}-->
+<!--                <input type="submit" class="submit-button"/>-->
+<!--            </form>-->
+            <form id="id_ajax_upload_form" action="/" method="POST" enctype="multipart/form-data">
+                <input type="file" name="image" value="">
+                <input type="submit" class="submit-button"/>
+            </form>
+        </div>
+
+      <!-- Application script -->
+      <script src="app.js"></script>
+    </body>
+
+    <footer>
+        <div>
+          <small>A TEST APP USING MODIFIPIC API   Copyright &copy Zuzanna Pietruszyńska</small>
+        </div>
+    </footer>
+</html>
+

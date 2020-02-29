@@ -4,7 +4,7 @@ h1{
 }
 
 body{
-    background-color: grey;
+    background-color: rgba(162, 162, 162, 0.75);
     text-align: center;
     color: #002300;
     font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif
