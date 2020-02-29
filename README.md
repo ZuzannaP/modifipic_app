@@ -3,7 +3,7 @@ Simple web app modifying image uploaded by user. Served as a platform to work wi
 
 ## How does it work?
 1. Upload an image and choose how you want to modify it (e.g. blur, sepia etc.).
-2. You can use use REST API endpoints or use app interface - depending on your needs.
+2. You can use REST API endpoints or use app interface - depending on your needs.
 
 a) This is REST API VIEW
 
