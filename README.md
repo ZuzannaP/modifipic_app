@@ -1,38 +1,25 @@
 # modifipic_app
-Simple web app modifying image uploaded by user. Served as a platform to work with Django Rest Framework.
+Simple web app modifying image uploaded by user. Served as a platform to work with Django Rest Framework and OpenCV.
 
 ## How does it work?
-1. You upload an image and then choose how you want to modify it (e.g. blur, sepia etc.).
+1. Upload an image and choose how you want to modify it (e.g. blur, sepia etc.).
 2. You can use use REST API endpoints or use app interface - depending on your needs.
 
-This is REST API VIEW
+a) This is REST API VIEW
 
 <p align="center">
 <img src="modifipic_app/frontend_modifipic/static/img/modifipic_app API view.png" alt="app screen"
 	title="modifipic_app API view" width="750" align="center"/>
 </p>
 
-AND THIS IS APP VIEW
+b) and this is app view
 
 <p align="center">
 <img align="center" src="modifipic_app/frontend_modifipic/static/img/modifipic_app user friendly app.png" alt="app screen"
 	title="modifipic_app user friendly app" width="750"/>
 </p>
 
-
-## How to get it up and running
-
-### Before you start
-
-Create virtualenv
-
-If you don't have the below installed, install them:
-
-[Install PostgreSQL and create a user](https://www.postgresql.org/download/)
-
-[Install PostGIS](https://postgis.net/install/)
-
-[Install QGIS](https://www.qgis.org/en/site/forusers/alldownloads.html)
+3. Simply download modified file.
 
 
 ### Getting Started
@@ -45,7 +32,7 @@ pip install -r requirements.txt
 
 Create new database in PostgreSQL
 
-Create new .py file in shall_we_meet/shall_we_meet folder and name it local_settings.py
+Create new .py file in modifipic_app/modifipic_app/ folder and name it local_settings.py
 
 Paste there the below:
 
@@ -54,7 +41,7 @@ SECRET_KEY = ''
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': '',
         'HOST': '',
         'PASSWORD': '',
@@ -65,33 +52,13 @@ DATABASES = {
 ```
 Fill in missing parameteres with your secret key and your database credentials.
 
-#### Add PostGIS extention to PostgreSQL
-
-Open psql
-```
-sudo -u postgres psql
-```
-Connect to your PostgreSQL database
-
-```
-postgres=# \c DATABASE_NAME
-```
-
-Run the following
-
-```
-CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology;
-```
-
-Exit from psql
-
 
 #### Installing
 
 While in directory:
 
 ```
-shall_we_meet/perfect_slot
+modifipic_app/modifipic_app/
 ```
 
 Run migrations:
@@ -107,14 +74,13 @@ python3 manage.py runserver
 
 ## Built With
 
-* [Python 3.6](https://www.python.org/)
-* [Django 3.0](https://www.djangoproject.com/)  - high-level Python Web framework that encourages rapid development and clean, pragmatic design.
-* [django-crispy-forms](https://github.com/django-crispy-forms/django-crispy-forms) - lets you control the rendering behavior of your Django forms in a very elegant and DRY way 
-* [django-tempus-dominus](https://pypi.org/project/django-tempus-dominus/) - Django widget for the Tempus Dominus Bootstrap 4 DateTime picker
-* [Bootstrap4](https://getbootstrap.com/) - open source toolkit for developing with HTML, CSS, and JS.
+* [Python 3.7.5](https://www.python.org/)
+* [Django Rest Framework 3.11.0](https://www.django-rest-framework.org/) -  powerful and flexible toolkit for building Web APIs
+* [Django 3.0.3](https://www.djangoproject.com/)  - high-level Python Web framework that encourages rapid development and clean, pragmatic design.
+* [Open CV 4.2.0.32](https://opencv.org/) - open source computer vision and machine learning software library
+* [Numpy 1.18.1](https://numpy.org/) - the fundamental package for scientific computing with Python
 * [PostgreSQL](https://www.postgresql.org/) -  open source object-relational database system
-* [PostGIS](https://postgis.net/) - spatial database extender for PostgreSQL object-relational database.
-* [Leaflet 1.6](https://leafletjs.com/) - leading open-source JavaScript library for mobile-friendly interactive maps
+
 
 ## Author
 
