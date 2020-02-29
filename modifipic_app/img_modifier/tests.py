@@ -62,63 +62,8 @@ class FormTestClass(TestCase):
 #         self.assertTrue(form.is_valid())
     #
 
-
-
-
-
-    #
-    # def test_valid_choose_meeting_location_form(self):
-    #     self.e.meeting_address = "Nice Street"
-    #     self.e.meeting_geographical_coordinates = "Point(13 13)"
-    #     self.e.location_comments = "The key is under doormat"
-    #     data = {'meeting_address': self.e.meeting_address,
-    #             "meeting_geographical_coordinates": self.e.meeting_geographical_coordinates,
-    #             "location_comments": self.e.location_comments}
-    #     form = ChooseMeetingLocationForm(data=data)
-    #     self.assertTrue(form.is_valid())
-    #
-    # def test_invalid_choose_meeting_location_form(self):
-    #     """omitting "meeting_geographical_coordinates" on purpose"""
-    #     self.e.meeting_address = "Big Street"
-    #     self.e.meeting_geographical_coordinates = "Point(13 13)"
-    #     self.e.location_comments = "The key is vase"
-    #     data = {'meeting_address': self.e.meeting_address,
-    #             "meeting_geographical_coordinates": "",
-    #             "location_comments": self.e.location_comments}
-    #     form = ChooseMeetingLocationForm(data=data)
-    #     self.assertFalse(form.is_valid())
-    #
-    # def test_valid_edit_event_form(self):
-    #     self.test_participant = CustomUser.objects.create_user(first_name="PanPat", last_name="Participant",
-    #                                                            username="pan_participant",
-    #                                                            password="pan_participantpan_participant",
-    #                                                            email="participant@wp.pl",
-    #                                                            geographical_coordinates="Point(14 14)")
-    #     self.e.participants.add(self.test_participant)
-    #     form = EditEventForm(excluding_owner=self.c)
-    #     displayed_participants = form.fields['participants'].queryset.all()
-    #     self.assertTrue(self.c not in displayed_participants)
-    #
-    # def test_valid_edit_meeting_location_form(self):
-    #     self.e.meeting_address = "Big Street"
-    #     self.e.meeting_geographical_coordinates = "Point(4 4)"
-    #     self.e.location_comments = "There are no doors. Use window"
-    #     data = {'meeting_address': self.e.meeting_address,
-    #             "meeting_geographical_coordinates": self.e.meeting_geographical_coordinates,
-    #             "location_comments": self.e.location_comments}
-    #     form = ImageFileUploadForm(data=data)
-    #     self.assertTrue(form.is_valid())
-    #
-    # def test_invalid_edit_meeting_location_form(self):
-    #     """omitting "meeting_address" on purpose"""
-    #     self.e.meeting_address = "Big Street"
-    #     self.e.meeting_geographical_coordinates = "Point(4 4)"
-    #     self.e.location_comments = "There are no doors. Use window"
-    #     data = {'meeting_address': "",
-    #             "meeting_geographical_coordinates": self.e.meeting_geographical_coordinates,
-    #             "location_comments": self.e.location_comments}
-    #     form = ImageFileUploadForm(data=data)
-    #     self.assertFalse(form.is_valid())
+class ViewTestClass(TestCase):
+    pass
 
 
 '''
