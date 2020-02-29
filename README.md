@@ -1,26 +1,24 @@
-# shall_we_meet_app
-Web app that helps to finally figure out perfect time and place for all friends to meet.
+# modifipic_app
+Simple web app modifying image uploaded by user. Served as a platform to work with Django Rest Framework.
 
 ## How does it work?
+1. You upload an image and then choose how you want to modify it (e.g. blur, sepia etc.).
+2. You can use use REST API endpoints or use app interface - depending on your needs.
 
-1. You create event, invite guests and propose a few time slots for the meeting
-2. App shows you the **area where all your guests reside**, so that you can find a meeting spot convenient to all
-
-<p align="center">
-<img align="center" src="shall_we_meet/perfect_slot/static/img/choose_meeting_location_view.png" alt="app screen"
-	title="shall_we_meet_app choosing location screen" width="750"/>
-</p>
-
-3. Your guests vote for each time slot
-4. When most of them voted, you see the results and which time slot is **preferred amongst your guests**
+This is REST API VIEW
 
 <p align="center">
-<img src="shall_we_meet/perfect_slot/static/img/organizers_detailed_event_view.png" alt="app screen"
-	title="shall_we_meet_app choosing time slot screen" width="750" align="center"/>
+<img src="modifipic_app/frontend_modifipic/static/img/modifipic_app API view.png" alt="app screen"
+	title="modifipic_app API view" width="750" align="center"/>
 </p>
 
-5. You finalize the meeting by choosing winning time slot
-6. Your guests see meeting details plus a **map** with location, so they won't be lost :)
+AND THIS IS APP VIEW
+
+<p align="center">
+<img align="center" src="modifipic_app/frontend_modifipic/static/img/modifipic_app user friendly app.png" alt="app screen"
+	title="modifipic_app user friendly app" width="750"/>
+</p>
+
 
 ## How to get it up and running
 
