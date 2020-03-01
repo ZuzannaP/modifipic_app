@@ -32,7 +32,7 @@ router.register(r'flipped_horizontally_images', FlippedHorizontallyImageViewSet,
 router.register(r'gray_images', GrayImageViewSet, basename='Gray Images View')
 router.register(r'sepia_images', SepiaImageViewSet, basename='Sepia Images View')
 
-urlpatterns = [
+urlpatterns = [""
     path('owner/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api-authenticate', include("rest_framework.urls")),
