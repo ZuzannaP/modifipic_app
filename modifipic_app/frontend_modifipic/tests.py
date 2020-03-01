@@ -3,16 +3,14 @@ import os
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from django.test import TestCase
-from django.test import Client
 from django.urls import reverse
 
 from .forms import ImageFileUploadForm
 from img_modifier.models import TheImage
 
-
 from django.test import override_settings
-
 import shutil
+
 
 TEST_DIR = 'test_data'
 my_media_root = os.path.join(TEST_DIR, 'media')
@@ -61,35 +59,12 @@ class ViewTestClass(TestCase):
         except OSError:
             pass
 
-# FORM TEST CLASS NOT WORKING
 
-# class FormTestClass(TestCase):
-#     def test_form_upload(self):
-#         img = SimpleUploadedFile('image.jpg', content=None, content_type='image/jpg')
-#         data = {'file': 'img'}
-#         form = ImageFileUploadForm(data=data)
-#         print(form.errors)
-#         #error mówi, że pole file jest required
-#         self.assertTrue(form.is_valid())
-
-    #     other attempts
-    #
-    # def get_temporary_image(self, temp_file):
-    #     size = (200, 200)
-    #     image = Image.new("RGB", size)
-    #     image.save(temp_file, 'jpeg')
-    #     return temp_file
-    #
-    # @override_settings(MEDIA_ROOT=tempfile.TemporaryDirectory().name)
-    # def test_form_upload(self):
-    #     temp_file = tempfile.NamedTemporaryFile()
-    #     test_image = self.get_temporary_image(temp_file)
-    #
-    #     # image = tempfile.NamedTemporaryFile(suffix=".jpg").name
-    #     # print(type(image))
-    #     # image_mock = SimpleUploadedFile('image.jpg', content=None, content_type='image/jpg')
-    #
-    #     data = {'file':test_image.name, "category":0, }
-    #     form = ImageFileUploadForm(data=data)
-    #     print(form.errors)
-    #     self.assertTrue(form.is_valid())
+class FormTestClass(TestCase):
+    def test_form_upload(self):
+        with open("img_modifier/tests_data/2.jpg", "rb") as test_photo:
+            img = SimpleUploadedFile('image.jpg', content=test_photo.read(), content_type='image/jpg')
+        file_data = {'file': img}
+        data = {'category': 0}
+        form = ImageFileUploadForm(data, file_data)
+        self.assertTrue(form.is_valid())

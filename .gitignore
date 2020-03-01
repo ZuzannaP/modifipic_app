@@ -119,3 +119,6 @@ GitHub.sublime-settings
 !.vscode/launch.json
 !.vscode/extensions.json
 .history
+
+# test data
+modifipic_app/test_data

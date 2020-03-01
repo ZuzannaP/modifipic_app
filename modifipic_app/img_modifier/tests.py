@@ -14,22 +14,13 @@ from django.test import override_settings
 import shutil
 
 
-"""
-BRAKI:
-1. test formularza w innej apce
-2. test dodania tu zdjecia
-3 test przetesowania akcj np. blurr
-
-"""
-
-
 TEST_DIR = 'test_data'
 my_media_root = os.path.join(TEST_DIR, 'media')
 
 
 class LoginTests(APITestCase):
     @classmethod
-    @override_settings(MEDIA_ROOT=(my_media_root))
+    @override_settings(MEDIA_ROOT=my_media_root)
     def setUp(cls):
         image_mock = SimpleUploadedFile('image.jpg', content=None, content_type='image/jpg')
         cls.the_image = TheImage.objects.create(file=image_mock)
@@ -46,7 +37,8 @@ class LoginTests(APITestCase):
         response = c.delete(f'/api/raw_images/{self.the_image.pk}/')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-    def tearDownModule(self):
+    @classmethod
+    def tearDownModule(cls):
         try:
             shutil.rmtree(TEST_DIR)
         except OSError:
@@ -55,7 +47,7 @@ class LoginTests(APITestCase):
 
 class SerializerTest(APITestCase):
     @classmethod
-    @override_settings(MEDIA_ROOT=(my_media_root))
+    @override_settings(MEDIA_ROOT=my_media_root)
     def setUp(cls):
         cls.random_photo = SimpleUploadedFile('image.jpg', content=None, content_type='image/jpeg')
         cls.the_image = TheImage.objects.create(file=cls.random_photo)
@@ -77,39 +69,40 @@ class SerializerTest(APITestCase):
         data = self.serializer.data
         self.assertEqual(data['file'], os.path.join("/media", str(self.the_image_attributes['file'])))
 
-    def tearDownModule(self):
+    @classmethod
+    def tearDownModule(cls):
         try:
             shutil.rmtree(TEST_DIR)
         except OSError:
             pass
-#
 
-# class RawImageViewSetTest(APITestCase):
-#     @classmethod
-#     @override_settings(MEDIA_ROOT=(my_media_root))
-#     def setUp(cls):
-#         cls.image_mock = SimpleUploadedFile('image.jpg', content=None, content_type='image/jpeg')
-#         cls.client = APIClient()
-#
-# # how to upload a file?
-#     def test_image_upload(self):
-#         url = '/api/raw_images/'
-#         data = {'file': self.image_mock, 'category': 0}
-#         response = self.client.post(url, data, format='multipart')
-#         print(response.data)
-#         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-#         self.assertEqual(TheImage.objects.count(), 1)
-#
-#     def tearDownModule(self):
-#         try:
-#             shutil.rmtree(TEST_DIR)
-#         except OSError:
-#             pass
+
+class RawImageViewSetTest(APITestCase):
+    @classmethod
+    def setUp(cls):
+        with open("img_modifier/tests_data/2.jpg", "rb") as test_photo:
+            cls.image_mock = SimpleUploadedFile('image.jpg', content=test_photo.read(), content_type='image/jpeg')
+        cls.client = APIClient()
+
+    @override_settings(MEDIA_ROOT=my_media_root)
+    def test_image_upload(self):
+        url = '/api/raw_images/'
+        data = {'file': self.image_mock, 'category': 0}
+        response = self.client.post(url, data, format='multipart')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(TheImage.objects.count(), 1)
+
+    @classmethod
+    def tearDownModule(cls):
+        try:
+            shutil.rmtree(TEST_DIR)
+        except OSError:
+            pass
 
 
 class BluredImageViewTest(APITestCase):
     @classmethod
-    @override_settings(MEDIA_ROOT=(my_media_root))
+    @override_settings(MEDIA_ROOT=my_media_root)
     def setUp(cls):
         image_mock = SimpleUploadedFile('image.jpg', content=None, content_type='image/jpg')
         cls.the_image = TheImage.objects.create(file=image_mock, category=1)
@@ -119,7 +112,8 @@ class BluredImageViewTest(APITestCase):
         response = self.client.get(f"/api/blurred_images/{self.the_image.pk}/")
         self.assertEqual(response.data['category'], str(1))
 
-    def tearDownModule(self):
+    @classmethod
+    def tearDownModule(cls):
         try:
             shutil.rmtree(TEST_DIR)
         except OSError:
@@ -128,7 +122,7 @@ class BluredImageViewTest(APITestCase):
 
 class FlippedHorizontallyImageViewSetTest(APITestCase):
     @classmethod
-    @override_settings(MEDIA_ROOT=(my_media_root))
+    @override_settings(MEDIA_ROOT=my_media_root)
     def setUp(cls):
         image_mock = SimpleUploadedFile('image.jpg', content=None, content_type='image/jpg')
         cls.the_image = TheImage.objects.create(file=image_mock, category=3)
@@ -138,7 +132,8 @@ class FlippedHorizontallyImageViewSetTest(APITestCase):
         response = self.client.get(f"/api/flipped_horizontally_images/{self.the_image.pk}/")
         self.assertEqual(response.data['category'], str(3))
 
-    def tearDownModule(self):
+    @classmethod
+    def tearDownModule(cls):
         try:
             shutil.rmtree(TEST_DIR)
         except OSError:
@@ -147,7 +142,7 @@ class FlippedHorizontallyImageViewSetTest(APITestCase):
 
 class GrayImageViewSetTest(APITestCase):
     @classmethod
-    @override_settings(MEDIA_ROOT=(my_media_root))
+    @override_settings(MEDIA_ROOT=my_media_root)
     def setUp(cls):
         image_mock = SimpleUploadedFile('image.jpg', content=None, content_type='image/jpg')
         cls.the_image = TheImage.objects.create(file=image_mock, category=2)
@@ -157,7 +152,8 @@ class GrayImageViewSetTest(APITestCase):
         response = self.client.get(f"/api/gray_images/{self.the_image.pk}/")
         self.assertEqual(response.data['category'], str(2))
 
-    def tearDownModule(self):
+    @classmethod
+    def tearDownModule(cls):
         try:
             shutil.rmtree(TEST_DIR)
         except OSError:
@@ -166,7 +162,7 @@ class GrayImageViewSetTest(APITestCase):
 
 class SepiaImageViewSetTest(APITestCase):
     @classmethod
-    @override_settings(MEDIA_ROOT=(my_media_root))
+    @override_settings(MEDIA_ROOT=my_media_root)
     def setUp(cls):
         image_mock = SimpleUploadedFile('image.jpg', content=None, content_type='image/jpg')
         cls.the_image = TheImage.objects.create(file=image_mock, category=4)
@@ -176,7 +172,8 @@ class SepiaImageViewSetTest(APITestCase):
         response = self.client.get(f"/api/sepia_images/{self.the_image.pk}/")
         self.assertEqual(response.data['category'], str(4))
 
-    def tearDownModule(self):
+    @classmethod
+    def tearDownModule(cls):
         try:
             shutil.rmtree(TEST_DIR)
         except OSError:
