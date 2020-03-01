@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,8 +25,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 try:
     from .local_settings import SECRET_KEY # noqa
 except ModuleNotFoundError:
-    print("Database not configured in file local_settings.py!")
-    print("Fill out this data and try again!")
+    print("Secret key not configured in file local_settings.py! \
+                  Fill out this data and try again!")
     exit(0)
 
 
@@ -35,11 +36,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
-CORS_ORIGIN_ALLOW_ALL = True
-
 INSTALLED_APPS = [
-    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,7 +50,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -91,8 +87,8 @@ WSGI_APPLICATION = 'modifipic_app.wsgi.application'
 try:
     from .local_settings import DATABASES # noqa
 except ModuleNotFoundError:
-    print("Database not configured in file local_settings.py!")
-    print("Fill out this data and try again!")
+    print("Database not configured in file local_settings.py! \
+                  Fill out this data and try again!")
     exit(0)
 
 

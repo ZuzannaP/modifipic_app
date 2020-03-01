@@ -40,11 +40,6 @@ body{
   color: white;
 }
 
-#id_file{
-    background-color: darkblue;
-    color: white;
-}
-
 footer{
     position: fixed;
     left: 0;

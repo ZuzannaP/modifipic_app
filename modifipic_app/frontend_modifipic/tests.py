@@ -17,14 +17,15 @@ my_media_root = os.path.join(TEST_DIR, 'media')
 
 
 class ModelTestClass(TestCase):
-    @override_settings(MEDIA_ROOT=(my_media_root))
+    @override_settings(MEDIA_ROOT=my_media_root)
     def test_image_upload(self):
         image_mock = SimpleUploadedFile('image.jpg', content=None, content_type='image/jpg')
         the_image = TheImage.objects.create(file=image_mock)
         self.assertEqual(len(TheImage.objects.all()), 1)
         self.assertTrue(isinstance(the_image, TheImage))
 
-    def tearDownModule(self):
+    @classmethod
+    def tearDownModule(cls):
         try:
             shutil.rmtree(TEST_DIR)
         except OSError:
@@ -33,7 +34,7 @@ class ModelTestClass(TestCase):
 
 class ViewTestClass(TestCase):
     @classmethod
-    @override_settings(MEDIA_ROOT=(my_media_root))
+    @override_settings(MEDIA_ROOT=my_media_root)
     def setUpTestData(cls):
         image_mock = SimpleUploadedFile('image.jpg', content=None, content_type='image/jpg')
         cls.the_image = TheImage.objects.create(file=image_mock)
@@ -53,7 +54,8 @@ class ViewTestClass(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'result_page.html')
 
-    def tearDownModule(self):
+    @classmethod
+    def tearDownModule(cls):
         try:
             shutil.rmtree(TEST_DIR)
         except OSError:
@@ -61,6 +63,7 @@ class ViewTestClass(TestCase):
 
 
 class FormTestClass(TestCase):
+    @override_settings(MEDIA_ROOT=my_media_root)
     def test_form_upload(self):
         with open("img_modifier/tests_data/2.jpg", "rb") as test_photo:
             img = SimpleUploadedFile('image.jpg', content=test_photo.read(), content_type='image/jpg')

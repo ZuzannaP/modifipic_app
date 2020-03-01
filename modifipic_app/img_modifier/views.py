@@ -19,8 +19,14 @@ from .permissions import GetPostOrAuthenticated
 from modifipic_app import utils
 
 
+class ImageViewSetsMixin:
+    serializer_class = ImageSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+
 class RawImageViewSet(viewsets.ModelViewSet):
-    """ API endpoint that allows groups to be viewed or edited. """
+    """ API endpoint that allows logged user to GET, POST, PUT, DELETE image.
+    Unlogged user can GET and POST image. Additionally users can perform several actions on images (e.g. blur)"""
     queryset = TheImage.objects.filter(category=0)
     serializer_class = ImageSerializer
     permission_classes = (GetPostOrAuthenticated, )
@@ -35,7 +41,9 @@ class RawImageViewSet(viewsets.ModelViewSet):
 
         try:
             blurred_img = cv2.GaussianBlur(image, (21, 21), cv2.BORDER_DEFAULT)
-
+        except OSError:
+            raise Http404("Image not found")
+        else:
             # creates object comparable to temporary file in RAM
             is_success, buffer = cv2.imencode(".jpg", blurred_img)
             io_buf = io.BytesIO(buffer)
@@ -44,8 +52,6 @@ class RawImageViewSet(viewsets.ModelViewSet):
             new_image.category = 1
             new_image.file.save(os.path.join(new_folder_name, new_img_name), data)
             return Response("Image has been blurred.")
-        except OSError:
-            raise Http404("Image not found")
 
     @action(detail=True, url_path='flip-horizontally', methods=['get'])
     def flip_image_horizontally(self, request, *args, **kwargs):
@@ -57,6 +63,9 @@ class RawImageViewSet(viewsets.ModelViewSet):
 
         try:
             flipped = cv2.flip(image, 1)
+        except OSError:
+            raise Http404("Image not found")
+        else:
             # creates object comparable to temporary file in RAM
             is_success, buffer = cv2.imencode(".jpg", flipped)
             io_buf = io.BytesIO(buffer)
@@ -65,8 +74,6 @@ class RawImageViewSet(viewsets.ModelViewSet):
             new_image.category = 3
             new_image.file.save(os.path.join(new_folder_name, new_img_name), data, True)
             return Response("Image has been flipped horizontally.")
-        except OSError:
-            raise Http404("Image not found")
 
     @action(detail=True, url_path="gray", methods=['get'])
     def gray_image(self, request, *args, **kwargs):
@@ -78,7 +85,9 @@ class RawImageViewSet(viewsets.ModelViewSet):
 
         try:
             gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
+        except OSError:
+            raise Http404("Image not found")
+        else:
             # creates object comparable to temporary file in RAM
             is_success, buffer = cv2.imencode(".jpg", gray_image)
             io_buf = io.BytesIO(buffer)
@@ -87,8 +96,6 @@ class RawImageViewSet(viewsets.ModelViewSet):
             new_image.category = 2
             new_image.file.save(os.path.join(new_folder_name, new_img_name), data, True)
             return Response("Image has been desaturated to gray.")
-        except OSError:
-            raise Http404("Image not found")
 
     @action(detail=True, url_path='sepia', methods=['get'])
     def sepia_image(self, request, *args, **kwargs):
@@ -106,7 +113,9 @@ class RawImageViewSet(viewsets.ModelViewSet):
 
             # Check which entries have a value greater than 255 and set it to 255
             img_sepia[np.where(img_sepia > 255)] = 255
-
+        except OSError:
+            raise Http404("Image not found")
+        else:
             # creates object comparable to temporary file in RAM
             is_success, buffer = cv2.imencode(".jpg", img_sepia)
             io_buf = io.BytesIO(buffer)
@@ -115,33 +124,23 @@ class RawImageViewSet(viewsets.ModelViewSet):
             new_image.category = 4
             new_image.file.save(os.path.join(new_folder_name, new_img_name), data, True)
             return Response("Image has been desaturated to sepia.")
-        except OSError:
-            raise Http404("Image not found")
 
 
-class BluredImageViewSet(viewsets.ModelViewSet):
-    """ API endpoint that allows groups to be viewed or edited. """
+class BluredImageViewSet(ImageViewSetsMixin, viewsets.ModelViewSet):
+    """ Endpoint storing all blurred images """
     queryset = TheImage.objects.filter(category=1)
-    serializer_class = ImageSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
-class FlippedHorizontallyImageViewSet(viewsets.ModelViewSet):
-    """ API endpoint that allows groups to be viewed or edited. """
+class FlippedHorizontallyImageViewSet(ImageViewSetsMixin, viewsets.ModelViewSet):
+    """  Endpoint storing all flipped horizontally images  """
     queryset = TheImage.objects.filter(category=3)
-    serializer_class = ImageSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
-class GrayImageViewSet(viewsets.ModelViewSet):
-    """ API endpoint that allows groups to be viewed or edited. """
+class GrayImageViewSet(ImageViewSetsMixin, viewsets.ModelViewSet):
+    """  Endpoint storing all gray images  """
     queryset = TheImage.objects.filter(category=2)
-    serializer_class = ImageSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
-class SepiaImageViewSet(viewsets.ModelViewSet):
-    """ API endpoint that allows groups to be viewed or edited. """
+class SepiaImageViewSet(ImageViewSetsMixin, viewsets.ModelViewSet):
+    """  Endpoint storing all sepia images  """
     queryset = TheImage.objects.filter(category=4)
-    serializer_class = ImageSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly,)
