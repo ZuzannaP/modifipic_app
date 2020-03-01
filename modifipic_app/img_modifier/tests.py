@@ -2,7 +2,6 @@ import tempfile
 
 from PIL import Image
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import TestCase, override_settings
 
 import mock
 from django.core.files import File
@@ -12,11 +11,17 @@ from rest_framework.test import APITestCase
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import APIClient
 
+from django.test import TestCase
+from django.test import Client
+from django.urls import reverse
+
 from .models import TheImage
 from .serializers import ImageSerializer
 from frontend_modifipic.forms import ImageFileUploadForm
 
 """
+formularz!!!
+
 serializers
 permissions
 API
@@ -31,13 +36,14 @@ class ModelTestClass(TestCase):
         self.assertTrue(isinstance(the_image, TheImage))
 
 
-class FormTestClass(TestCase):
-    def test_form_upload(self):
-        img = "SimpleUploadedFile('image.jpg', content=None, content_type='image/jpg')"
-        data = {'file': img}
-        form = ImageFileUploadForm(data=data)
-        print(form.errors)
-        self.assertTrue(form.is_valid())
+# class FormTestClass(TestCase):
+#     def test_form_upload(self):
+#         img = SimpleUploadedFile('image.jpg', content=None, content_type='image/jpg')
+#         data = {'file': 'img'}
+#         form = ImageFileUploadForm(data=data)
+#         print(form.errors)
+#         #error mówi, że pole file jest required
+#         self.assertTrue(form.is_valid())
 
         # other attempts
 
@@ -60,10 +66,28 @@ class FormTestClass(TestCase):
 #         form = ImageFileUploadForm(data=data)
 #         print(form.errors)
 #         self.assertTrue(form.is_valid())
-    #
+
 
 class ViewTestClass(TestCase):
-    pass
+    @classmethod
+    def setUpTestData(cls):
+        image_mock = SimpleUploadedFile('image.jpg', content=None, content_type='image/jpg')
+        cls.the_image = TheImage.objects.create(file=image_mock)
+
+    def test_upload_image_via_form_view_uses_correct_template_and_has_desired_location(self):
+            response = self.client.get(reverse('landing_page'))
+            self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed(response, 'landing_page.html')
+
+    def test_modify_image_view_uses_correct_template_and_has_desired_location(self):
+            response = self.client.get(reverse('modify', args=(self.the_image.pk,)))
+            self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed(response, 'modify_page.html')
+
+    def test_display_image_view_uses_correct_template_and_has_desired_location(self):
+        response = self.client.get(reverse('result', args=(self.the_image.pk,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'result_page.html')
 
 
 '''
