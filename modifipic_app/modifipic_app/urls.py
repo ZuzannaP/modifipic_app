@@ -26,11 +26,11 @@ import frontend_modifipic.urls
 
 router = DefaultRouter()
 router.register(r'raw_images', RawImageViewSet, basename='Raw Images View')
-router.register(r'blurred_images', BluredImageViewSet, basename=' Blured Images View')
+router.register(r'blurred_images', BluredImageViewSet, basename='Blured Images View')
 router.register(r'flipped_horizontally_images', FlippedHorizontallyImageViewSet,
-                basename=' Flipped Horizontally Images View')
-router.register(r'gray_images', GrayImageViewSet, basename=' Gray Images View')
-router.register(r'sepia_images', SepiaImageViewSet, basename=' Sepia Images View')
+                basename='Flipped Horizontally Images View')
+router.register(r'gray_images', GrayImageViewSet, basename='Gray Images View')
+router.register(r'sepia_images', SepiaImageViewSet, basename='Sepia Images View')
 
 urlpatterns = [
     path('owner/', admin.site.urls),
