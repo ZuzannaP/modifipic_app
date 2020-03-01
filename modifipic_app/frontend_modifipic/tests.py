@@ -1,3 +1,5 @@
+import os
+
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from django.test import TestCase
@@ -8,16 +10,31 @@ from .forms import ImageFileUploadForm
 from img_modifier.models import TheImage
 
 
+from django.test import override_settings
+
+import shutil
+
+TEST_DIR = 'test_data'
+my_media_root = os.path.join(TEST_DIR, 'media')
+
+
 class ModelTestClass(TestCase):
+    @override_settings(MEDIA_ROOT=(my_media_root))
     def test_image_upload(self):
         image_mock = SimpleUploadedFile('image.jpg', content=None, content_type='image/jpg')
         the_image = TheImage.objects.create(file=image_mock)
         self.assertEqual(len(TheImage.objects.all()), 1)
         self.assertTrue(isinstance(the_image, TheImage))
 
+    def tearDownModule(self):
+        try:
+            shutil.rmtree(TEST_DIR)
+        except OSError:
+            pass
 
 class ViewTestClass(TestCase):
     @classmethod
+    @override_settings(MEDIA_ROOT=(my_media_root))
     def setUpTestData(cls):
         image_mock = SimpleUploadedFile('image.jpg', content=None, content_type='image/jpg')
         cls.the_image = TheImage.objects.create(file=image_mock)
@@ -37,6 +54,11 @@ class ViewTestClass(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'result_page.html')
 
+    def tearDownModule(self):
+        try:
+            shutil.rmtree(TEST_DIR)
+        except OSError:
+            pass
 
 # FORM TEST CLASS NOT WORKING
 
