@@ -1,8 +1,6 @@
 import os
 
 from django.contrib.auth.models import User
-from django.core.files import File
-from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 from rest_framework import status
@@ -28,6 +26,7 @@ BRAKI:
 TEST_DIR = 'test_data'
 my_media_root = os.path.join(TEST_DIR, 'media')
 
+
 class LoginTests(APITestCase):
     @classmethod
     @override_settings(MEDIA_ROOT=(my_media_root))
@@ -41,7 +40,7 @@ class LoginTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_login_assertion_pass(self):
-        test_user = User.objects.create_user(username="ms_test_user", password="ms_test_users_secret_password")
+        self.test_user = User.objects.create_user(username="ms_test_user", password="ms_test_users_secret_password")
         c = APIClient()
         c.login(username="ms_test_user", password="ms_test_users_secret_password")
         response = c.delete(f'/api/raw_images/{self.the_image.pk}/')
@@ -76,7 +75,7 @@ class SerializerTest(APITestCase):
 
     def test_file_field_content(self):
         data = self.serializer.data
-        self.assertEqual(data['file'], os.path.join("/media",str(self.the_image_attributes['file'])))
+        self.assertEqual(data['file'], os.path.join("/media", str(self.the_image_attributes['file'])))
 
     def tearDownModule(self):
         try:
@@ -126,6 +125,7 @@ class BluredImageViewTest(APITestCase):
         except OSError:
             pass
 
+
 class FlippedHorizontallyImageViewSetTest(APITestCase):
     @classmethod
     @override_settings(MEDIA_ROOT=(my_media_root))
@@ -143,6 +143,7 @@ class FlippedHorizontallyImageViewSetTest(APITestCase):
             shutil.rmtree(TEST_DIR)
         except OSError:
             pass
+
 
 class GrayImageViewSetTest(APITestCase):
     @classmethod

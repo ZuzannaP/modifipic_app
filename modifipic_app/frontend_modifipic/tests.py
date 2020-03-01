@@ -32,6 +32,7 @@ class ModelTestClass(TestCase):
         except OSError:
             pass
 
+
 class ViewTestClass(TestCase):
     @classmethod
     @override_settings(MEDIA_ROOT=(my_media_root))
@@ -40,14 +41,14 @@ class ViewTestClass(TestCase):
         cls.the_image = TheImage.objects.create(file=image_mock)
 
     def test_upload_image_via_form_view_uses_correct_template_and_has_desired_location(self):
-            response = self.client.get(reverse('landing_page'))
-            self.assertEqual(response.status_code, 200)
-            self.assertTemplateUsed(response, 'landing_page.html')
+        response = self.client.get(reverse('landing_page'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'landing_page.html')
 
     def test_modify_image_view_uses_correct_template_and_has_desired_location(self):
-            response = self.client.get(reverse('modify', args=(self.the_image.pk,)))
-            self.assertEqual(response.status_code, 200)
-            self.assertTemplateUsed(response, 'modify_page.html')
+        response = self.client.get(reverse('modify', args=(self.the_image.pk,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'modify_page.html')
 
     def test_display_image_view_uses_correct_template_and_has_desired_location(self):
         response = self.client.get(reverse('result', args=(self.the_image.pk,)))
@@ -92,6 +93,3 @@ class ViewTestClass(TestCase):
     #     form = ImageFileUploadForm(data=data)
     #     print(form.errors)
     #     self.assertTrue(form.is_valid())
-
-
-
