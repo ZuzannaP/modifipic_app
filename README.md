@@ -77,7 +77,7 @@ python3 manage.py runserver
 * [Python 3.7.5](https://www.python.org/)
 * [Django Rest Framework 3.11.0](https://www.django-rest-framework.org/) -  powerful and flexible toolkit for building Web APIs
 * [Django 3.0.3](https://www.djangoproject.com/)  - high-level Python Web framework that encourages rapid development and clean, pragmatic design.
-* [Open CV 4.2.0.32](https://opencv.org/) - open source computer vision and machine learning software library
+* [OpenCV 4.2.0.32](https://opencv.org/) - open source computer vision and machine learning software library
 * [Numpy 1.18.1](https://numpy.org/) - the fundamental package for scientific computing with Python
 * [PostgreSQL](https://www.postgresql.org/) -  open source object-relational database system
 
