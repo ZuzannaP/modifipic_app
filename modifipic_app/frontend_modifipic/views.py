@@ -23,8 +23,9 @@ def upload_image_via_form_view(request):
             image = TheImage.objects.create(file=file)
             return redirect(f"modify/{image.pk}")
         else:
-            # todo insert here message
-            return "Something went wrong"
+            form = ImageFileUploadForm()
+            wrong_input = "Please upload an image, not other data type."
+            return render(request, 'landing_page.html', {'form': form, 'wrong_input': wrong_input})
     else:
         form = ImageFileUploadForm()
         return render(request, 'landing_page.html', {'form': form})
@@ -43,7 +44,6 @@ class ModifyImageView(View):
             try:
                 new_image.file.save(os.path.join(new_folder_name, new_img_name), data, True)
                 return redirect(f"/result/{new_image.pk}")
-            # todo zmień error na lepszy - błąd zapisu w bazie
             except OSError:
                 raise Http404("Image not found")
 
