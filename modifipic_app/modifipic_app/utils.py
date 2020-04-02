@@ -16,8 +16,6 @@ def preprocessing_img(new_img_name_prefix, new_folder_name, raw_image):
     except AssertionError as f:
         raise Http404("Unable to open image, upload it again", f)
 
-    # todo dodaj messages framework i te errory wypisuj z góry
-
     dir_path = os.path.dirname(raw_image.file.path)
     img_name = os.path.basename(raw_image.file.name)
     new_img_name = new_img_name_prefix + img_name
