@@ -13,20 +13,22 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 
 from .settings import MEDIA_URL, MEDIA_ROOT
-from img_modifier.views import RawImageViewSet, BluredImageViewSet, FlippedHorizontallyImageViewSet, GrayImageViewSet,\
+from img_modifier.views import RawImageViewSet, BlurredImageViewSet, FlippedHorizontallyImageViewSet, GrayImageViewSet,\
                                SepiaImageViewSet
 
 import frontend_modifipic.urls
 
 router = DefaultRouter()
 router.register(r'raw_images', RawImageViewSet, basename='Raw Images View')
-router.register(r'blurred_images', BluredImageViewSet, basename='Blured Images View')
+router.register(r'blurred_images', BlurredImageViewSet, basename='Blurred Images View')
 router.register(r'flipped_horizontally_images', FlippedHorizontallyImageViewSet,
                 basename='Flipped Horizontally Images View')
 router.register(r'gray_images', GrayImageViewSet, basename='Gray Images View')

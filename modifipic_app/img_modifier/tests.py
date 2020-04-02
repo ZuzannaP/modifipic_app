@@ -100,7 +100,7 @@ class RawImageViewSetTest(APITestCase):
             pass
 
 
-class BluredImageViewTest(APITestCase):
+class BlurredImageViewTest(APITestCase):
     @classmethod
     @override_settings(MEDIA_ROOT=my_media_root)
     def setUp(cls):

@@ -126,7 +126,7 @@ class RawImageViewSet(viewsets.ModelViewSet):
             return Response("Image has been desaturated to sepia.")
 
 
-class BluredImageViewSet(ImageViewSetsMixin, viewsets.ModelViewSet):
+class BlurredImageViewSet(ImageViewSetsMixin, viewsets.ModelViewSet):
     """ Endpoint storing all blurred images """
     queryset = TheImage.objects.filter(category=1)
 

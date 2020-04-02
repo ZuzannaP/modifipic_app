@@ -41,7 +41,7 @@ logger = logging.getLogger(__name__)
 # SECURITY WARNING: keep the secret key used in production secret!
 
 try:
-    from .local_settings import SECRET_KEY # noqa
+    from .local_settings import SECRET_KEY
 except ModuleNotFoundError:
     logger.warning("Secret key not configured in file local_settings.py! \
                   Fill out this data and try again!")
@@ -103,7 +103,7 @@ WSGI_APPLICATION = 'modifipic_app.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 try:
-    from .local_settings import DATABASES # noqa
+    from .local_settings import DATABASES
 except ModuleNotFoundError:
     logger.warning("Database not configured in file local_settings.py! \
                   Fill out this data and try again!")
