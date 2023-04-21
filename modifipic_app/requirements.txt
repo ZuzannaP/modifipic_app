@@ -24,6 +24,6 @@ pyflakes==2.1.1
 Pygments==2.7.4
 pytz==2019.3
 six==1.14.0
-sqlparse==0.3.0
+sqlparse==0.4.4
 traitlets==4.3.3
 wcwidth==0.1.8
